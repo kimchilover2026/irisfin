@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#321e2d">
+<meta name="description" content="Un pequeño rincón hecho para So.">
+<title>Para So ♡</title>
+<style>
+:root{--rose:#f4c7d4;--cream:#fff4ee;--wine:#562c43;--gold:#e6c99b}
+*{box-sizing:border-box}
+html{min-height:100%;background:#21151e}
+body{margin:0;min-height:100%;font-family:Georgia,'Times New Roman',serif;background:#21151e;color:var(--cream);overflow-x:hidden}
+button{font:inherit}
+.video-bg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;background:#261923}
+.scrim{position:fixed;inset:0;z-index:1;background:linear-gradient(180deg,rgba(29,14,25,.48),rgba(46,20,37,.58) 50%,rgba(22,14,21,.78));pointer-events:none}
+.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.12;background-image:radial-gradient(#fff 0.55px,transparent .7px);background-size:5px 5px;mix-blend-mode:soft-light}
+main{position:relative;z-index:3;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,32px);text-align:center}
+.card{width:min(680px,100%);padding:clamp(48px,7vw,66px) clamp(20px,5vw,50px) clamp(30px,5vw,44px);border:1px solid rgba(255,230,235,.46);border-radius:clamp(120px,25vw,260px) clamp(120px,25vw,260px) 24px 24px;background:linear-gradient(160deg,rgba(71,35,56,.62),rgba(33,20,31,.60));box-shadow:0 20px 80px #170b1580,inset 0 0 35px #fff1;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);position:relative;animation:appear .9s ease both;overflow:hidden}
+.card:before,.card:after{content:"✿";position:absolute;color:#f7d5dc;font-size:clamp(24px,4vw,40px);text-shadow:0 0 20px #ffd9e580;pointer-events:none}
+.card:before{top:20px;left:clamp(18px,4vw,30px);transform:rotate(-18deg)}.card:after{right:clamp(18px,4vw,30px);top:20px;transform:rotate(18deg)}
+.eyebrow{font:600 .68rem Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#f6d9df;margin:0 0 20px}
+h1{font-size:clamp(2.65rem,9vw,5.6rem);line-height:1;font-weight:400;letter-spacing:-.045em;margin:0;color:#fff6f2;text-shadow:0 3px 22px #1d0b1b}
+h1 em{font-weight:400;color:#f3c4d1}
+.rule{height:1px;width:72px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:25px auto}
+.message{max-width:440px;margin:0 auto;color:#fff0ec;font-size:clamp(1rem,2.6vw,1.22rem);line-height:1.75;text-shadow:0 2px 10px #1b0b16}
+.flower-action{display:flex;justify-content:center;margin:25px auto 0;opacity:0;transform:translateY(8px);animation:buttonIn .9s ease 1.3s forwards}
+.flower-button{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;border:1px solid rgba(255,224,231,.65);background:rgba(255,225,234,.12);color:#ffe3e9;cursor:pointer;box-shadow:0 0 0 0 rgba(247,197,212,.25);transition:transform .25s ease,background .25s ease,box-shadow .25s ease;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.flower-button span{font-size:2.15rem;line-height:1;filter:drop-shadow(0 0 9px #ffd9e5aa)}
+.flower-button:hover{transform:translateY(-3px) scale(1.04);background:rgba(255,225,234,.22);box-shadow:0 0 28px #f7c5d233}
+.flower-button:focus-visible,.action-button:focus-visible{outline:2px solid #ffe6ec;outline-offset:4px}
+.signature{margin:20px 0 0;font-style:italic;font-size:.9rem;color:#f5d7df;opacity:.95}
+.corner{position:fixed;z-index:4;bottom:max(12px,env(safe-area-inset-bottom));left:12px;right:12px;text-align:center;font:.62rem Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#fff1edb8;pointer-events:none}
+.panel{display:none;animation:appear .65s ease both}
+.panel.active{display:block}
+.panel .message{max-width:465px}
+.action-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;max-width:100%;margin-top:24px;padding:13px 22px;border:1px solid rgba(255,225,232,.66);border-radius:999px;background:rgba(255,226,234,.13);color:#fff3f2;font-size:clamp(.92rem,3.5vw,1rem);line-height:1.3;cursor:pointer;transition:background .2s ease,transform .2s ease;touch-action:manipulation;-webkit-tap-highlight-color:transparent;overflow-wrap:anywhere}
+.action-button:hover{background:rgba(255,226,234,.24);transform:translateY(-1px)}
+.action-button:active{transform:scale(.98)}
+.panel-title{font-size:clamp(1.7rem,6vw,2.5rem);line-height:1.2;font-weight:400;margin:0;color:#fff6f2}
+.lily{font-size:clamp(2.8rem,10vw,4.2rem);margin:0 0 13px;line-height:1;color:#f8d9e1;text-shadow:0 0 25px #ffd9e566}
+.petal{position:fixed;top:-30px;z-index:5;pointer-events:none;color:#f5c6d2;text-shadow:0 2px 9px #4b213c;animation:fall linear forwards;opacity:.85}
+@keyframes appear{from{opacity:0;transform:translateY(14px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes buttonIn{to{opacity:1;transform:translateY(0)}}
+@keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(500deg);opacity:.15}}
+@media(max-width:520px){
+ main{padding:14px 13px calc(42px + env(safe-area-inset-bottom));align-items:center}
+ .card{padding:48px 20px 28px;border-radius:135px 135px 22px 22px;max-width:440px}
+ .card:before{top:17px;left:17px}.card:after{top:17px;right:17px}
+ .eyebrow{font-size:.61rem;letter-spacing:.2em;margin-bottom:18px}
+ .message{line-height:1.62;font-size:1rem}
+ .rule{margin:21px auto}
+ .flower-button{width:60px;height:60px}
+ .action-button{width:100%;max-width:310px;margin-top:21px;padding:13px 17px}
+ .corner{font-size:.5rem;letter-spacing:.12em;bottom:max(8px,env(safe-area-inset-bottom))}
+}
+@media(max-height:650px){
+ main{align-items:flex-start;padding-top:18px;padding-bottom:46px}
+ .card{margin:auto 0}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}
+ .flower-action{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<video class="video-bg" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+  <source src="fondo.mp4" type="video/mp4">
+</video>
+<div class="scrim" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+<main>
+  <section class="card" aria-live="polite">
+    <div id="intro" class="panel active">
+      <p class="eyebrow">un pequeño rincón para vos</p>
+      <h1>Para <em>So</em></h1>
+      <div class="rule"></div>
+      <p class="message">Hay momentos que merecen quedarse un poquito más, como esos que pasamos juntos. Este espacio es para detener el tiempo, respirar suave y regalarte un lugar bonito.</p>
+      <div class="flower-action">
+        <button class="flower-button" id="openLily" type="button" aria-label="Descubrir el siguiente mensaje" title="Tocá la flor"><span aria-hidden="true">✿</span></button>
+      </div>
+      <p class="signature">hecho con cariño ♡</p>
+    </div>
+    <div id="lilyPanel" class="panel">
+      <div class="lily" aria-hidden="true">❀</div>
+      <h2 class="panel-title">¿Sabías que un solo lirio es capaz de ambientar toda una habitación?</h2>
+      <div class="rule"></div>
+      <p class="message">¿Oliste alguna vez un lirio?</p>
+      <div class="flower-action" style="opacity:1;transform:none;animation:none;margin-top:25px">
+        <button class="flower-button" id="inviteButton" type="button" aria-label="Descubrir el siguiente mensaje" title="Tocá la flor"><span aria-hidden="true">✿</span></button>
+      </div>
+    </div>
+    <div id="outsidePanel" class="panel">
+      <div class="lily" aria-hidden="true">♡</div>
+      <h2 class="panel-title">Salí afuera de tu casa 1 segundo.</h2>
+      <div class="rule"></div>
+      <p class="message">A veces, las cosas más lindas empiezan con un pequeño momento.</p>
+      <button class="action-button" id="backButton" type="button">Volver al principio</button>
+    </div>
+  </section>
+</main>
+<div class="corner">un instante bonito · solo para vos</div>
+<script>
+const symbols=['✿','❀','✾','♡','✧'];
+function petal(){
+ const el=document.createElement('span');
+ el.className='petal';
+ el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+ el.style.left=Math.random()*100+'vw';
+ el.style.fontSize=(12+Math.random()*17)+'px';
+ el.style.setProperty('--drift',(Math.random()*180-90)+'px');
+ el.style.animationDuration=(9+Math.random()*9)+'s';
+ document.body.appendChild(el);
+ window.setTimeout(()=>el.remove(),19000);
+}
+for(let i=0;i<7;i++)window.setTimeout(petal,i*650);
+window.setInterval(petal,1750);
+const panels=[...document.querySelectorAll('.panel')];
+function showPanel(id){
+ panels.forEach(panel=>{panel.classList.toggle('active',panel.id===id)});
+ const card=document.querySelector('.card');
+ card.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+}
+document.getElementById('openLily').addEventListener('click',()=>showPanel('lilyPanel'));
+document.getElementById('inviteButton').addEventListener('click',()=>showPanel('outsidePanel'));
+document.getElementById('backButton').addEventListener('click',()=>showPanel('intro'));
+const video=document.querySelector('.video-bg');
+video.addEventListener('error',()=>{video.style.display='none';document.body.style.background='#2a1a27';});
+</script>
+</body>
+</html>
